@@ -10,7 +10,7 @@ Technology Stack
 
 Initial Database Design
 
-[Imgur](https://i.imgur.com/3etS134.png)
+![Imgur](https://i.imgur.com/3etS134.png)
 
 
 
