@@ -1,0 +1,11 @@
+/MyRecipe.Api/.vs/MyRecipe.Api/DesignTimeBuild/.dtbcache
+/MyRecipe.Api/.vs/MyRecipe.Api/v16/Server/sqlite3/db.lock
+/MyRecipe.Api/.vs/MyRecipe.Api/v16/Server/sqlite3/storage.ide
+/MyRecipe.Api/.vs/MyRecipe.Api/v16/Server/sqlite3/storage.ide-shm
+/MyRecipe.Api/.vs/MyRecipe.Api/v16/Server/sqlite3/storage.ide-wal
+*.suo
+*.user
+_ReSharper.*
+bin
+obj
+packages
