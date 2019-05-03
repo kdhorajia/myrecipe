@@ -4,20 +4,20 @@ using MyRecipe.Models;
 
 namespace MyRecipe.Data.EntityConfiguration
 {
-    public class CategoryEntityConfiguration : IEntityTypeConfiguration<Category>
+    public class IngredientEntityConfiguration : IEntityTypeConfiguration<Ingredient>
     {
-        public void Configure(EntityTypeBuilder<Category> builder)
+        public void Configure(EntityTypeBuilder<Ingredient> builder)
         {
             builder.HasKey(x => x.Id);
 
             builder.Property(x => x.Id)
                 .ValueGeneratedOnAdd()
-                .HasColumnName("CategoryId");
+                .HasColumnName("IngredientId");
 
             builder.Property(c => c.Name).HasColumnType("varchar(50)");
-            builder.Property(c => c.Description).HasColumnType("varchar(100)");
+            builder.Property(c => c.Unit).HasColumnType("varchar(50)");
 
-            builder.ToTable("Category");
+            builder.ToTable("Ingredient");
         }
     }
 }

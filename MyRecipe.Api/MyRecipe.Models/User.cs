@@ -9,5 +9,7 @@ namespace MyRecipe.Models
         public string UserName { get; set; }
         public string PasswordHash { get; set; }
         public int CustomerId { get; set; }
+        public virtual Customer Customer { get; set; }
+
     }
 }
