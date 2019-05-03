@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using MyRecipe.Models;
+using MyRecipe.Models.Entities;
 
 namespace MyRecipe.Data.EntityConfiguration
 {

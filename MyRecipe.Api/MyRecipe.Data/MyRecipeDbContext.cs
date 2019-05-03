@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MyRecipe.Data.EntityConfiguration;
-using MyRecipe.Models;
+using MyRecipe.Models.Entities;
 
 namespace MyRecipe.Data
 {

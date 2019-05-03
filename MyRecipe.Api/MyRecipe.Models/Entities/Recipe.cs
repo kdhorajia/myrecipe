@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace MyRecipe.Models
+namespace MyRecipe.Models.Entities
 {
     public partial class Recipe : TrackedEntity
     {
@@ -8,7 +8,7 @@ namespace MyRecipe.Models
         {
             RecipeIngredient = new HashSet<RecipeIngredient>();
         }
-        
+
         public string Name { get; set; }
         public string Description { get; set; }
         public string Instruction { get; set; }

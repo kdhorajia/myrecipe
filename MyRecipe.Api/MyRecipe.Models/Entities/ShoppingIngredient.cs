@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace MyRecipe.Models
+namespace MyRecipe.Models.Entities
 {
-    public partial class ShoppingIngredient : TrackedEntity 
+    public partial class ShoppingIngredient : TrackedEntity
     {
         public int ShoppingListId { get; set; }
         public int IngredientId { get; set; }

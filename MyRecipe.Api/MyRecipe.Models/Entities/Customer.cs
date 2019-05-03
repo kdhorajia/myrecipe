@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace MyRecipe.Models
+namespace MyRecipe.Models.Entities
 {
     public partial class Customer : TrackedEntity
     {

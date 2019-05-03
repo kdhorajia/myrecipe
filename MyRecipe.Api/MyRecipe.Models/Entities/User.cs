@@ -1,8 +1,9 @@
-﻿using System;
+﻿using MyRecipe.Models.Entities;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace MyRecipe.Models
+namespace MyRecipe.Models.Entities
 {
     public partial class User : TrackedEntity
     {
