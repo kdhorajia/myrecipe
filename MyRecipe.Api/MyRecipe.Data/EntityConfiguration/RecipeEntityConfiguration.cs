@@ -18,6 +18,8 @@ namespace MyRecipe.Data.EntityConfiguration
                 .HasColumnName("RecipeId");
 
             builder.Property(c => c.Name).HasColumnType("varchar(50)");
+            builder.HasIndex(c => c.Name).HasName("IDX_Recipe_Name");
+
             builder.Property(c => c.Description).HasColumnType("varchar(100)");
             builder.Property(c => c.Instruction).HasColumnType("varchar(max)");
 

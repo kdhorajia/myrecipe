@@ -16,6 +16,8 @@ namespace MyRecipe.Data
             services
                .AddScoped<IRepository<Category>, AtomicRepository<Category>>();
             services
+               .AddScoped<IRepository<Ingredient>, AtomicRepository<Ingredient>>();
+            services
                .AddScoped<IRecipeRepository, RecipeRepository>();
         }
     }

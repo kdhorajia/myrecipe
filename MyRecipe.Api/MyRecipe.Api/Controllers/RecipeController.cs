@@ -21,9 +21,17 @@ namespace MyRecipe.Api.Controllers
 
         [HttpGet]
         [Route("categories")]
-        public async Task<IList<Category>> GetCategories()
+        public async Task<IList<CategoryModel>> GetCategories()
         {
-            IList<Category> result = await _recipeService.GetCategories();
+            IList<CategoryModel> result = await _recipeService.GetCategories();
+            return result;
+        }
+
+        [HttpGet]
+        [Route("ingredients")]
+        public async Task<IList<IngredientModel>> GetIngredients()
+        {
+            IList<IngredientModel> result = await _recipeService.GetIngredients();
             return result;
         }
 
@@ -31,6 +39,13 @@ namespace MyRecipe.Api.Controllers
         public async Task<RecipeModel> AddRecipe([FromBody] RecipeModel model)
         {
             var result = await _recipeService.AddRecipe(model);
+            return result;
+        }
+
+        [HttpGet]
+        public async Task<IList<RecipeModel>> GetRecipes(string recipeName)
+        {
+            var result = await _recipeService.GetRecipes(recipeName);
             return result;
         }
     }

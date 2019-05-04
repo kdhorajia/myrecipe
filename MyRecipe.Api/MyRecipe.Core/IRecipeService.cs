@@ -7,7 +7,9 @@ namespace MyRecipe.Core
 {
     public interface IRecipeService
     {
-        Task<IList<Category>> GetCategories();
+        Task<IList<CategoryModel>> GetCategories();
+        Task<IList<IngredientModel>> GetIngredients();
+        Task<IList<RecipeModel>> GetRecipes(string recipeName);
         Task<RecipeModel> AddRecipe(RecipeModel recipeModel);
     }
 }

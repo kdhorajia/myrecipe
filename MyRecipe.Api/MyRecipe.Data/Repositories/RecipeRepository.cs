@@ -1,11 +1,15 @@
-﻿using MyRecipe.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using MyRecipe.Models;
 using MyRecipe.Models.Entities;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace MyRecipe.Data.Repositories
 {
     public class RecipeRepository : TrackingRepository<Recipe>, IRecipeRepository
     {
-        public RecipeRepository(MyRecipeDbContext context) : base(context) {}
+        public RecipeRepository(MyRecipeDbContext context) : base(context) { }
 
         public Recipe AddRecipe(RecipeModel recipeModel)
         {
@@ -23,6 +27,8 @@ namespace MyRecipe.Data.Repositories
                 recipe.RecipeIngredient.Add(new RecipeIngredient()
                 {
                     IngredientId = recipeIngredient.IngredientId,
+                    Unit = recipeIngredient.Unit,
+                    Preparation = recipeIngredient.Preparation,
                     Quantity = recipeIngredient.Quantity
                 });
             }
@@ -30,6 +36,14 @@ namespace MyRecipe.Data.Repositories
             _context.Add(recipe);
 
             return recipe;
+        }
+
+        public Task<List<Recipe>> GetRecipes(string recipeName)
+        {
+            return _context.Set<Recipe>().Where(o => !o.Deleted && o.Name.ToLowerInvariant().Contains(recipeName.ToLowerInvariant()))
+                .Include(o => o.RecipeIngredient)
+                .Include("RecipeIngredient.Ingredient")
+                .ToListAsync();
         }
     }
 }
