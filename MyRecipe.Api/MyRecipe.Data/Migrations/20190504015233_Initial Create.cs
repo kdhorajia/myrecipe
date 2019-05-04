@@ -46,8 +46,7 @@ namespace MyRecipe.Data.Migrations
                     IngredientId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Deleted = table.Column<bool>(nullable: false),
-                    Name = table.Column<string>(type: "varchar(50)", nullable: true),
-                    Unit = table.Column<string>(type: "varchar(50)", nullable: true)
+                    Name = table.Column<string>(type: "varchar(200)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -65,7 +64,8 @@ namespace MyRecipe.Data.Migrations
                     Description = table.Column<string>(type: "varchar(100)", nullable: true),
                     Instruction = table.Column<string>(type: "varchar(max)", nullable: true),
                     CustomerId = table.Column<int>(nullable: false),
-                    CategoryId = table.Column<int>(nullable: false)
+                    CategoryId = table.Column<int>(nullable: false),
+                    IsPrivate = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -137,7 +137,9 @@ namespace MyRecipe.Data.Migrations
                     Deleted = table.Column<bool>(nullable: false),
                     RecipeId = table.Column<int>(nullable: false),
                     IngredientId = table.Column<int>(nullable: false),
-                    Quantity = table.Column<double>(nullable: false)
+                    Unit = table.Column<string>(type: "varchar(100)", nullable: true),
+                    Quantity = table.Column<double>(nullable: true),
+                    Preparation = table.Column<string>(type: "varchar(500)", nullable: true)
                 },
                 constraints: table =>
                 {

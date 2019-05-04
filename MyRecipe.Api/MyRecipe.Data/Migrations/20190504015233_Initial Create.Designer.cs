@@ -10,7 +10,7 @@ using MyRecipe.Data;
 namespace MyRecipe.Data.Migrations
 {
     [DbContext(typeof(MyRecipeDbContext))]
-    [Migration("20190503020906_Initial Create")]
+    [Migration("20190504015233_Initial Create")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,7 +21,7 @@ namespace MyRecipe.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("MyRecipe.Models.Category", b =>
+            modelBuilder.Entity("MyRecipe.Models.Entities.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -41,7 +41,7 @@ namespace MyRecipe.Data.Migrations
                     b.ToTable("Category");
                 });
 
-            modelBuilder.Entity("MyRecipe.Models.Customer", b =>
+            modelBuilder.Entity("MyRecipe.Models.Entities.Customer", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -69,7 +69,7 @@ namespace MyRecipe.Data.Migrations
                     b.ToTable("Customer");
                 });
 
-            modelBuilder.Entity("MyRecipe.Models.Ingredient", b =>
+            modelBuilder.Entity("MyRecipe.Models.Entities.Ingredient", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -79,17 +79,14 @@ namespace MyRecipe.Data.Migrations
                     b.Property<bool>("Deleted");
 
                     b.Property<string>("Name")
-                        .HasColumnType("varchar(50)");
-
-                    b.Property<string>("Unit")
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("varchar(200)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Ingredient");
                 });
 
-            modelBuilder.Entity("MyRecipe.Models.Recipe", b =>
+            modelBuilder.Entity("MyRecipe.Models.Entities.Recipe", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -108,6 +105,8 @@ namespace MyRecipe.Data.Migrations
                     b.Property<string>("Instruction")
                         .HasColumnType("varchar(max)");
 
+                    b.Property<bool>("IsPrivate");
+
                     b.Property<string>("Name")
                         .HasColumnType("varchar(50)");
 
@@ -120,7 +119,7 @@ namespace MyRecipe.Data.Migrations
                     b.ToTable("Recipe");
                 });
 
-            modelBuilder.Entity("MyRecipe.Models.RecipeIngredient", b =>
+            modelBuilder.Entity("MyRecipe.Models.Entities.RecipeIngredient", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -131,9 +130,15 @@ namespace MyRecipe.Data.Migrations
 
                     b.Property<int>("IngredientId");
 
-                    b.Property<double>("Quantity");
+                    b.Property<string>("Preparation")
+                        .HasColumnType("varchar(500)");
+
+                    b.Property<double?>("Quantity");
 
                     b.Property<int>("RecipeId");
+
+                    b.Property<string>("Unit")
+                        .HasColumnType("varchar(100)");
 
                     b.HasKey("Id");
 
@@ -144,7 +149,7 @@ namespace MyRecipe.Data.Migrations
                     b.ToTable("RecipeIngredient");
                 });
 
-            modelBuilder.Entity("MyRecipe.Models.ShoppingIngredient", b =>
+            modelBuilder.Entity("MyRecipe.Models.Entities.ShoppingIngredient", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -166,7 +171,7 @@ namespace MyRecipe.Data.Migrations
                     b.ToTable("ShoppingIngredient");
                 });
 
-            modelBuilder.Entity("MyRecipe.Models.ShoppingList", b =>
+            modelBuilder.Entity("MyRecipe.Models.Entities.ShoppingList", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -192,7 +197,7 @@ namespace MyRecipe.Data.Migrations
                     b.ToTable("ShoppingList");
                 });
 
-            modelBuilder.Entity("MyRecipe.Models.User", b =>
+            modelBuilder.Entity("MyRecipe.Models.Entities.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -221,57 +226,57 @@ namespace MyRecipe.Data.Migrations
                     b.ToTable("User");
                 });
 
-            modelBuilder.Entity("MyRecipe.Models.Recipe", b =>
+            modelBuilder.Entity("MyRecipe.Models.Entities.Recipe", b =>
                 {
-                    b.HasOne("MyRecipe.Models.Category", "Category")
+                    b.HasOne("MyRecipe.Models.Entities.Category", "Category")
                         .WithMany("Recipe")
                         .HasForeignKey("CategoryId")
                         .HasConstraintName("FK_Recipe_Category")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("MyRecipe.Models.Customer", "Customer")
+                    b.HasOne("MyRecipe.Models.Entities.Customer", "Customer")
                         .WithMany("Recipe")
                         .HasForeignKey("CustomerId")
                         .HasConstraintName("FK_Recipe_Customer")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("MyRecipe.Models.RecipeIngredient", b =>
+            modelBuilder.Entity("MyRecipe.Models.Entities.RecipeIngredient", b =>
                 {
-                    b.HasOne("MyRecipe.Models.Ingredient", "Ingredient")
+                    b.HasOne("MyRecipe.Models.Entities.Ingredient", "Ingredient")
                         .WithMany()
                         .HasForeignKey("IngredientId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("MyRecipe.Models.Recipe", "Recipe")
+                    b.HasOne("MyRecipe.Models.Entities.Recipe", "Recipe")
                         .WithMany("RecipeIngredient")
                         .HasForeignKey("RecipeId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("MyRecipe.Models.ShoppingIngredient", b =>
+            modelBuilder.Entity("MyRecipe.Models.Entities.ShoppingIngredient", b =>
                 {
-                    b.HasOne("MyRecipe.Models.ShoppingList", "ShoppingList")
+                    b.HasOne("MyRecipe.Models.Entities.ShoppingList", "ShoppingList")
                         .WithMany("ShoppingIngredient")
                         .HasForeignKey("ShoppingListId")
                         .HasConstraintName("FK_Shopping_Ingredient")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("MyRecipe.Models.ShoppingList", b =>
+            modelBuilder.Entity("MyRecipe.Models.Entities.ShoppingList", b =>
                 {
-                    b.HasOne("MyRecipe.Models.Customer", "Customer")
+                    b.HasOne("MyRecipe.Models.Entities.Customer", "Customer")
                         .WithMany("ShoppingList")
                         .HasForeignKey("CustomerId")
                         .HasConstraintName("FK_ShoppingList_Customer")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("MyRecipe.Models.User", b =>
+            modelBuilder.Entity("MyRecipe.Models.Entities.User", b =>
                 {
-                    b.HasOne("MyRecipe.Models.Customer", "Customer")
+                    b.HasOne("MyRecipe.Models.Entities.Customer", "Customer")
                         .WithOne("User")
-                        .HasForeignKey("MyRecipe.Models.User", "CustomerId")
+                        .HasForeignKey("MyRecipe.Models.Entities.User", "CustomerId")
                         .HasConstraintName("FK_User_Customer")
                         .OnDelete(DeleteBehavior.Restrict);
                 });

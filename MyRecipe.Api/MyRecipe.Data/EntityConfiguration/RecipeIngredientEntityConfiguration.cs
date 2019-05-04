@@ -15,8 +15,9 @@ namespace MyRecipe.Data.EntityConfiguration
                 .ValueGeneratedOnAdd()
                 .HasColumnName("RecipeIngredientId");
 
-            builder.Property(c => c.Quantity).IsRequired();
-        
+            builder.Property(c => c.Unit).HasColumnType("varchar(100)");
+            builder.Property(c => c.Preparation).HasColumnType("varchar(500)");
+          
             builder.ToTable("RecipeIngredient");
         }
     }

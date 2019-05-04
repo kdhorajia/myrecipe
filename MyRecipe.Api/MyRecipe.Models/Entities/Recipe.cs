@@ -15,6 +15,8 @@ namespace MyRecipe.Models.Entities
 
         public int CustomerId { get; set; }
         public int CategoryId { get; set; }
+        public bool IsPrivate { get; set; }
+
         public virtual ICollection<RecipeIngredient> RecipeIngredient { get; set; }
 
         public virtual Customer Customer { get; set; }

@@ -9,8 +9,12 @@ namespace MyRecipe.Models.Entities
         public int RecipeId { get; set; }
 
         public int IngredientId { get; set; }
+        public string Unit { get; set; }
 
-        public double Quantity { get; set; }
+        public double? Quantity { get; set; }
+
+        public string Preparation { get; set; }
+
 
         public virtual Recipe Recipe { get; set; }
 
