@@ -1,4 +1,6 @@
-﻿using MyRecipe.Data;
+﻿using AutoMapper;
+using MyRecipe.Data;
+using MyRecipe.Data.Repositories;
 using MyRecipe.Models;
 using MyRecipe.Models.Entities;
 using System.Collections.Generic;
@@ -9,17 +11,21 @@ namespace MyRecipe.Core.Services
     public class RecipeService : IRecipeService
     {
         private readonly IRepository<Category> _categoryRepository;
-        private readonly MyRecipeDbContext _context;
+        private readonly IRecipeRepository _recipeRepository;
+        private readonly IMapper _mapper;
 
-        public RecipeService(IRepository<Category> categoryRepository, MyRecipeDbContext context)
+        public RecipeService(IRepository<Category> categoryRepository, IRecipeRepository recipeRepository, IMapper mapper)
         {
             _categoryRepository = categoryRepository;
-            _context = context;
+            _recipeRepository = recipeRepository;
+            _mapper = mapper;
         }
 
-        public Task<RecipeModel> CreateRecipe()
+        public async Task<RecipeModel> AddRecipe(RecipeModel recipeModel)
         {
-            
+            var model = _recipeRepository.AddRecipe(recipeModel);
+            await _recipeRepository.SaveChanges();
+            return _mapper.Map<RecipeModel>(model);
         }
 
         public async Task<IList<Category>> GetCategories()

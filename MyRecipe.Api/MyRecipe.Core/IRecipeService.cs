@@ -8,6 +8,6 @@ namespace MyRecipe.Core
     public interface IRecipeService
     {
         Task<IList<Category>> GetCategories();
-        Task<RecipeModel> CreateRecipe();
+        Task<RecipeModel> AddRecipe(RecipeModel recipeModel);
     }
 }

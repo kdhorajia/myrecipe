@@ -3,8 +3,8 @@ using MyRecipe.Models.Entities;
 
 namespace MyRecipe.Data.Repositories
 {
-    public interface IRecipeRepository
+    public interface IRecipeRepository : ITrackingRepository<Recipe>
     {
-        Recipe CreateRecipe(RecipeModel recipeModel);
+        Recipe AddRecipe(RecipeModel recipeModel);
     }
 }

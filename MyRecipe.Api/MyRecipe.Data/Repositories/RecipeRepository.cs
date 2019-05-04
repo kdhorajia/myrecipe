@@ -7,7 +7,7 @@ namespace MyRecipe.Data.Repositories
     {
         public RecipeRepository(MyRecipeDbContext context) : base(context) {}
 
-        public Recipe CreateRecipe(RecipeModel recipeModel)
+        public Recipe AddRecipe(RecipeModel recipeModel)
         {
             Recipe recipe = new Recipe()
             {

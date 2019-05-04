@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using MyRecipe.Data.Repositories;
 using MyRecipe.Models.Entities;
 
 namespace MyRecipe.Data
@@ -14,6 +15,8 @@ namespace MyRecipe.Data
 
             services
                .AddScoped<IRepository<Category>, AtomicRepository<Category>>();
+            services
+               .AddScoped<IRecipeRepository, RecipeRepository>();
         }
     }
 }

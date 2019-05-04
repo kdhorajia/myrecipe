@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using MyRecipe.Models.Entities;
 using System.Collections.Generic;
 using System.Linq;
@@ -66,6 +67,11 @@ namespace MyRecipe.Data
         public virtual Task SaveChanges()
         {
             return _context.SaveChangesAsync();
+        }
+
+        public virtual Task<IDbContextTransaction> StartTransaction()
+        {
+            return _context.Database.BeginTransactionAsync();
         }
     }
 }

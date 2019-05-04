@@ -2,14 +2,15 @@
 using MyRecipe.Models;
 using MyRecipe.Models.Entities;
 
-namespace MyRecipe.Core.Mapper
+namespace MyRecipe.Core.Profiles
 {
-    public class RecipeMapper : Profile
+    public class RecipeProfile : Profile
     {
-        public RecipeMapper()
+        public RecipeProfile()
         {
             CreateMap<Recipe, RecipeModel>()
                  .ForMember(c => c.RecipeId, o => o.MapFrom(m => m.Id))
+                 .ForMember(c => c.RecipeIngredients, o => o.MapFrom(m => m.RecipeIngredient))
                  .ReverseMap();
 
             CreateMap<RecipeIngredient, RecipeIngredientModel>()

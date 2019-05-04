@@ -1,4 +1,5 @@
-﻿using MyRecipe.Models.Entities;
+﻿using Microsoft.EntityFrameworkCore.Storage;
+using MyRecipe.Models.Entities;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,6 +18,8 @@ namespace MyRecipe.Data
         Task Delete(int PrimaryKey);
 
         Task SaveChanges();
+
+        Task<IDbContextTransaction> StartTransaction();
 
     }
 }
