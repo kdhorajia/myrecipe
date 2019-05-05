@@ -22,6 +22,8 @@ namespace MyRecipe.Data.EntityConfiguration
 
             builder.Property(c => c.Description).HasColumnType("varchar(100)");
             builder.Property(c => c.Instruction).HasColumnType("varchar(max)");
+            builder.Property(c => c.PreparationTime).HasColumnType("varchar(30)");
+            builder.Property(c => c.CookingTime).HasColumnType("varchar(30)");
 
             builder.HasOne(d => d.Customer)
               .WithMany(p => p.Recipe)

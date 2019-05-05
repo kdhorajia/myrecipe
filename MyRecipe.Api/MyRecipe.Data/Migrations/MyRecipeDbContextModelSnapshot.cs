@@ -93,6 +93,9 @@ namespace MyRecipe.Data.Migrations
 
                     b.Property<int>("CategoryId");
 
+                    b.Property<string>("CookingTime")
+                        .HasColumnType("varchar(30)");
+
                     b.Property<int>("CustomerId");
 
                     b.Property<bool>("Deleted");
@@ -103,10 +106,11 @@ namespace MyRecipe.Data.Migrations
                     b.Property<string>("Instruction")
                         .HasColumnType("varchar(max)");
 
-                    b.Property<bool>("IsPrivate");
-
                     b.Property<string>("Name")
                         .HasColumnType("varchar(50)");
+
+                    b.Property<string>("PreparationTime")
+                        .HasColumnType("varchar(30)");
 
                     b.HasKey("Id");
 
@@ -118,6 +122,27 @@ namespace MyRecipe.Data.Migrations
                         .HasName("IDX_Recipe_Name");
 
                     b.ToTable("Recipe");
+                });
+
+            modelBuilder.Entity("MyRecipe.Models.Entities.RecipeImage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("RecipeImageId")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("Deleted");
+
+                    b.Property<string>("ImagePath")
+                        .HasColumnType("varchar(300)");
+
+                    b.Property<int>("RecipeId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RecipeId");
+
+                    b.ToTable("RecipeImage");
                 });
 
             modelBuilder.Entity("MyRecipe.Models.Entities.RecipeIngredient", b =>
@@ -240,6 +265,14 @@ namespace MyRecipe.Data.Migrations
                         .HasForeignKey("CustomerId")
                         .HasConstraintName("FK_Recipe_Customer")
                         .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("MyRecipe.Models.Entities.RecipeImage", b =>
+                {
+                    b.HasOne("MyRecipe.Models.Entities.Recipe", "Recipe")
+                        .WithMany("RecipeImage")
+                        .HasForeignKey("RecipeId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("MyRecipe.Models.Entities.RecipeIngredient", b =>

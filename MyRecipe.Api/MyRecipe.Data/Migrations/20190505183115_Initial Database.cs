@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MyRecipe.Data.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class InitialDatabase : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -63,9 +63,10 @@ namespace MyRecipe.Data.Migrations
                     Name = table.Column<string>(type: "varchar(50)", nullable: true),
                     Description = table.Column<string>(type: "varchar(100)", nullable: true),
                     Instruction = table.Column<string>(type: "varchar(max)", nullable: true),
+                    PreparationTime = table.Column<string>(type: "varchar(30)", nullable: true),
+                    CookingTime = table.Column<string>(type: "varchar(30)", nullable: true),
                     CustomerId = table.Column<int>(nullable: false),
-                    CategoryId = table.Column<int>(nullable: false),
-                    IsPrivate = table.Column<bool>(nullable: false)
+                    CategoryId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -126,6 +127,27 @@ namespace MyRecipe.Data.Migrations
                         principalTable: "Customer",
                         principalColumn: "CustomerId",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RecipeImage",
+                columns: table => new
+                {
+                    RecipeImageId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Deleted = table.Column<bool>(nullable: false),
+                    ImagePath = table.Column<string>(type: "varchar(300)", nullable: true),
+                    RecipeId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RecipeImage", x => x.RecipeImageId);
+                    table.ForeignKey(
+                        name: "FK_RecipeImage_Recipe_RecipeId",
+                        column: x => x.RecipeId,
+                        principalTable: "Recipe",
+                        principalColumn: "RecipeId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -196,6 +218,16 @@ namespace MyRecipe.Data.Migrations
                 column: "CustomerId");
 
             migrationBuilder.CreateIndex(
+                name: "IDX_Recipe_Name",
+                table: "Recipe",
+                column: "Name");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RecipeImage_RecipeId",
+                table: "RecipeImage",
+                column: "RecipeId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_RecipeIngredient_IngredientId",
                 table: "RecipeIngredient",
                 column: "IngredientId");
@@ -229,6 +261,9 @@ namespace MyRecipe.Data.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "RecipeImage");
+
             migrationBuilder.DropTable(
                 name: "RecipeIngredient");
 

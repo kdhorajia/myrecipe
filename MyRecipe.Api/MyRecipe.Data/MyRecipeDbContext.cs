@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
 using MyRecipe.Data.EntityConfiguration;
 using MyRecipe.Models.Entities;
 
@@ -15,6 +16,7 @@ namespace MyRecipe.Data
             modelBuilder.ApplyConfiguration(new IngredientEntityConfiguration());
             modelBuilder.ApplyConfiguration(new RecipeEntityConfiguration());
             modelBuilder.ApplyConfiguration(new RecipeIngredientEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new RecipeImagesEntityConfiguration());
             modelBuilder.ApplyConfiguration(new UserEntityConfiguration());
             modelBuilder.ApplyConfiguration(new ShoppingListEntityConfiguration());
             modelBuilder.ApplyConfiguration(new ShoppingIngredientEntityConfiguration());
@@ -22,11 +24,17 @@ namespace MyRecipe.Data
             base.OnModelCreating(modelBuilder);
         }
 
+        internal object Set<T>(int v)
+        {
+            throw new NotImplementedException();
+        }
+
         public virtual DbSet<Category> Category { get; set; }
         public virtual DbSet<Customer> Customer { get; set; }
         public virtual DbSet<Ingredient> Ingredient { get; set; }
         public virtual DbSet<Recipe> Recipe { get; set; }
         public virtual DbSet<RecipeIngredient> RecipeIngredient { get; set; }
+        public virtual DbSet<RecipeImage> RecipeImage { get; set; }
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<ShoppingList> ShoppingList { get; set; }
         public virtual DbSet<ShoppingIngredient> ShoppingIngredient { get; set; }

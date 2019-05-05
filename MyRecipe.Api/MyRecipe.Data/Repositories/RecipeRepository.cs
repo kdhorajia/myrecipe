@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MyRecipe.Models;
 using MyRecipe.Models.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,39 +12,34 @@ namespace MyRecipe.Data.Repositories
     {
         public RecipeRepository(MyRecipeDbContext context) : base(context) { }
 
-        public Recipe AddRecipe(RecipeModel recipeModel)
+        public Recipe AddRecipe(Recipe recipe)
         {
-            Recipe recipe = new Recipe()
-            {
-                Name = recipeModel.Name,
-                Description = recipeModel.Description,
-                Instruction = recipeModel.Instruction,
-                CustomerId = recipeModel.CustomerId,
-                CategoryId = recipeModel.CategoryId,
-            };
-
-            foreach (RecipeIngredientModel recipeIngredient in recipeModel.RecipeIngredients)
-            {
-                recipe.RecipeIngredient.Add(new RecipeIngredient()
-                {
-                    IngredientId = recipeIngredient.IngredientId,
-                    Unit = recipeIngredient.Unit,
-                    Preparation = recipeIngredient.Preparation,
-                    Quantity = recipeIngredient.Quantity
-                });
-            }
-
             _context.Add(recipe);
-
             return recipe;
         }
 
-        public Task<List<Recipe>> GetRecipes(string recipeName)
+        public async Task<Tuple<IList<Recipe>, int>> GetRecipes(string recipeName, int startRecordNumber, int pageSize, string orderBy)
         {
-            return _context.Set<Recipe>().Where(o => !o.Deleted && o.Name.ToLowerInvariant().Contains(recipeName.ToLowerInvariant()))
+            var query = _context.Set<Recipe>().Where(o => !o.Deleted && o.Name.ToLowerInvariant().Contains(recipeName.ToLowerInvariant()))
                 .Include(o => o.RecipeIngredient)
-                .Include("RecipeIngredient.Ingredient")
-                .ToListAsync();
+                .Include(o => o.RecipeImage)
+                .Include("RecipeIngredient.Ingredient");
+            
+            query = !string.IsNullOrEmpty(orderBy)
+               ? query.OrderBy(orderBy)
+               : query.OrderBy(a => a.Name);
+
+            int total = await query.CountAsync();
+
+            if (startRecordNumber > 0)
+                query = query.Skip<Recipe>(startRecordNumber);
+
+            if (pageSize > 0)
+                query = query.Take<Recipe>(pageSize);
+
+            var result = await query.ToListAsync();
+
+            return new Tuple<IList<Recipe>,int> (result, total);
         }
     }
 }

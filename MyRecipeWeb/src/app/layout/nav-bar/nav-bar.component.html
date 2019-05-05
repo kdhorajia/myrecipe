@@ -1,0 +1,50 @@
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item">
+      <img src="../../../assets/icons/logo.png">
+    </a>
+
+    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
+      data-target="navbarBasicExample">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-start">
+      <a class="navbar-item is-size-6" [routerLink]="['/recipes']" >
+        Home
+      </a>
+
+      <a class="navbar-item is-size-6">
+        Recipes
+      </a>
+
+      <a class="navbar-item is-size-6">
+        Ingredients
+      </a>
+      <a class="navbar-item is-size-6">
+        Shopping List
+      </a>
+    </div>
+
+    <div class="navbar-end">
+      <div class="navbar-item">
+
+        <div class="buttons">
+          <a class="button is-info" [routerLink]="['/recipes/new']" >
+            <strong>Submit a recipe</strong>
+          </a>
+          <a class="button is-primary">
+            <strong>Sign up</strong>
+          </a>
+          <a class="button is-light">
+            Log in
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>

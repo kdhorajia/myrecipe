@@ -43,9 +43,9 @@ namespace MyRecipe.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IList<RecipeModel>> GetRecipes(string recipeName)
+        public async Task<ResultOutputData<IList<RecipeModel>>> GetRecipes(string recipeName = "", int startRecordNumber = 0, int pageSize = 10, string orderBy = "")
         {
-            var result = await _recipeService.GetRecipes(recipeName);
+            var result = await _recipeService.GetRecipes(recipeName, startRecordNumber, pageSize, orderBy);
             return result;
         }
     }

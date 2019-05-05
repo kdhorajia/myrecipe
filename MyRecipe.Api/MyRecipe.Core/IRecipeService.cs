@@ -9,7 +9,7 @@ namespace MyRecipe.Core
     {
         Task<IList<CategoryModel>> GetCategories();
         Task<IList<IngredientModel>> GetIngredients();
-        Task<IList<RecipeModel>> GetRecipes(string recipeName);
+        Task<ResultOutputData<IList<RecipeModel>>> GetRecipes(string recipeName, int startRecordNumber, int pageSize, string orderBy);
         Task<RecipeModel> AddRecipe(RecipeModel recipeModel);
     }
 }

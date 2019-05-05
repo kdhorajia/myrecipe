@@ -11,12 +11,12 @@ namespace MyRecipe.Core.Services
     public class RecipeService : IRecipeService
     {
         private readonly IRepository<Category> _categoryRepository;
-        private readonly IRepository<Ingredient> _ingredientRepository;
+        private readonly IIngredientRepository _ingredientRepository;
         private readonly IRecipeRepository _recipeRepository;
         private readonly IMapper _mapper;
 
         public RecipeService(IRepository<Category> categoryRepository,
-                    IRepository<Ingredient> ingredientRepository,
+                    IIngredientRepository ingredientRepository,
                     IRecipeRepository recipeRepository, IMapper mapper)
         {
             _categoryRepository = categoryRepository;
@@ -27,11 +27,22 @@ namespace MyRecipe.Core.Services
 
         public async Task<RecipeModel> AddRecipe(RecipeModel recipeModel)
         {
-            var recipe = _recipeRepository.AddRecipe(recipeModel);
+            foreach(var recipeIngredient in recipeModel.RecipeIngredients)
+            {
+                if(!recipeIngredient.IngredientId.HasValue)
+                {
+                    recipeIngredient.Ingredient = _mapper.Map<IngredientModel>(await _ingredientRepository.AddIngredient(recipeIngredient.IngredientName));
+                } else
+                {
+                    recipeIngredient.Ingredient = _mapper.Map<IngredientModel>(await _ingredientRepository.GetByID(recipeIngredient.IngredientId.Value));
+                }
+            }
+            
+            Recipe recipe = _mapper.Map<Recipe>(recipeModel);
+            var result = _recipeRepository.AddRecipe(recipe);
             await _recipeRepository.SaveChanges();
-
-            await EnrichedRecipeInfo(recipe);
-            return _mapper.Map<RecipeModel>(recipe);
+            await EnrichedRecipeInfo(result);
+            return _mapper.Map<RecipeModel>(result);
         }
 
         private async Task EnrichedRecipeInfo(Recipe recipe)
@@ -55,10 +66,13 @@ namespace MyRecipe.Core.Services
             return _mapper.Map<IngredientModel[]>(result);
         }
 
-        public async Task<IList<RecipeModel>> GetRecipes(string recipeName)
+        public async Task<ResultOutputData<IList<RecipeModel>>> GetRecipes(string recipeName, int startRecordNumber, int pageSize, string orderBy)
         {
-            var result = await _recipeRepository.GetRecipes(recipeName);
-            return _mapper.Map<RecipeModel[]>(result); ;
+            var data = await _recipeRepository.GetRecipes(recipeName, startRecordNumber, pageSize, orderBy);
+            var result = new ResultOutputData<IList<RecipeModel>>();
+            result.ResultSet = _mapper.Map<RecipeModel[]>(data.Item1);
+            result.TotalCount = data.Item2;
+            return result;
         }
     }
 }
