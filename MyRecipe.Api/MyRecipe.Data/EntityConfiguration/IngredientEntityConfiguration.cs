@@ -15,7 +15,11 @@ namespace MyRecipe.Data.EntityConfiguration
                 .HasColumnName("IngredientId");
 
             builder.Property(c => c.Name).HasColumnType("varchar(200)").IsRequired();
-           
+
+            builder.Property(c => c.CreatedDate).HasDefaultValueSql("getdate()");
+            builder.Property(c => c.UpdatedDate).HasDefaultValueSql("getdate()");
+
+
             builder.ToTable("Ingredient");
         }
     }

@@ -15,6 +15,10 @@ namespace MyRecipe.Data.Migrations
                     CategoryId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Deleted = table.Column<bool>(nullable: false),
+                    CreatedDate = table.Column<DateTime>(nullable: false, defaultValueSql: "getdate()"),
+                    UpdatedDate = table.Column<DateTime>(nullable: false, defaultValueSql: "getdate()"),
+                    CreatedUser = table.Column<string>(nullable: true),
+                    UpdatedUser = table.Column<string>(nullable: true),
                     Name = table.Column<string>(type: "varchar(50)", nullable: true),
                     Description = table.Column<string>(type: "varchar(100)", nullable: true)
                 },
@@ -30,6 +34,10 @@ namespace MyRecipe.Data.Migrations
                     CustomerId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Deleted = table.Column<bool>(nullable: false),
+                    CreatedDate = table.Column<DateTime>(nullable: false, defaultValueSql: "getdate()"),
+                    UpdatedDate = table.Column<DateTime>(nullable: false, defaultValueSql: "getdate()"),
+                    CreatedUser = table.Column<string>(nullable: true),
+                    UpdatedUser = table.Column<string>(nullable: true),
                     FirstName = table.Column<string>(type: "varchar(50)", nullable: false),
                     LastName = table.Column<string>(type: "varchar(50)", nullable: false),
                     Email = table.Column<string>(type: "varchar(50)", nullable: false)
@@ -46,7 +54,11 @@ namespace MyRecipe.Data.Migrations
                     IngredientId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Deleted = table.Column<bool>(nullable: false),
-                    Name = table.Column<string>(type: "varchar(200)", nullable: true)
+                    CreatedDate = table.Column<DateTime>(nullable: false, defaultValueSql: "getdate()"),
+                    UpdatedDate = table.Column<DateTime>(nullable: false, defaultValueSql: "getdate()"),
+                    CreatedUser = table.Column<string>(nullable: true),
+                    UpdatedUser = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(type: "varchar(200)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -60,6 +72,10 @@ namespace MyRecipe.Data.Migrations
                     RecipeId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Deleted = table.Column<bool>(nullable: false),
+                    CreatedDate = table.Column<DateTime>(nullable: false, defaultValueSql: "getdate()"),
+                    UpdatedDate = table.Column<DateTime>(nullable: false, defaultValueSql: "getdate()"),
+                    CreatedUser = table.Column<string>(nullable: true),
+                    UpdatedUser = table.Column<string>(nullable: true),
                     Name = table.Column<string>(type: "varchar(50)", nullable: true),
                     Description = table.Column<string>(type: "varchar(100)", nullable: true),
                     Instruction = table.Column<string>(type: "varchar(max)", nullable: true),
@@ -92,6 +108,10 @@ namespace MyRecipe.Data.Migrations
                     ShoppingListId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Deleted = table.Column<bool>(nullable: false),
+                    CreatedDate = table.Column<DateTime>(nullable: false, defaultValueSql: "getdate()"),
+                    UpdatedDate = table.Column<DateTime>(nullable: false, defaultValueSql: "getdate()"),
+                    CreatedUser = table.Column<string>(nullable: true),
+                    UpdatedUser = table.Column<string>(nullable: true),
                     CartDate = table.Column<DateTime>(type: "datetime", nullable: false, defaultValueSql: "getdate()"),
                     Name = table.Column<string>(type: "varchar(50)", nullable: true),
                     CustomerId = table.Column<int>(nullable: false)
@@ -114,6 +134,10 @@ namespace MyRecipe.Data.Migrations
                     UserId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Deleted = table.Column<bool>(nullable: false),
+                    CreatedDate = table.Column<DateTime>(nullable: false, defaultValueSql: "getdate()"),
+                    UpdatedDate = table.Column<DateTime>(nullable: false, defaultValueSql: "getdate()"),
+                    CreatedUser = table.Column<string>(nullable: true),
+                    UpdatedUser = table.Column<string>(nullable: true),
                     UserName = table.Column<string>(type: "varchar(50)", nullable: false),
                     PasswordHash = table.Column<string>(type: "varchar(50)", nullable: false),
                     CustomerId = table.Column<int>(nullable: false)
@@ -136,6 +160,10 @@ namespace MyRecipe.Data.Migrations
                     RecipeImageId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Deleted = table.Column<bool>(nullable: false),
+                    CreatedDate = table.Column<DateTime>(nullable: false, defaultValueSql: "getdate()"),
+                    UpdatedDate = table.Column<DateTime>(nullable: false, defaultValueSql: "getdate()"),
+                    CreatedUser = table.Column<string>(nullable: true),
+                    UpdatedUser = table.Column<string>(nullable: true),
                     ImagePath = table.Column<string>(type: "varchar(300)", nullable: true),
                     RecipeId = table.Column<int>(nullable: false)
                 },
@@ -157,6 +185,10 @@ namespace MyRecipe.Data.Migrations
                     RecipeIngredientId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Deleted = table.Column<bool>(nullable: false),
+                    CreatedDate = table.Column<DateTime>(nullable: false, defaultValueSql: "getdate()"),
+                    UpdatedDate = table.Column<DateTime>(nullable: false, defaultValueSql: "getdate()"),
+                    CreatedUser = table.Column<string>(nullable: true),
+                    UpdatedUser = table.Column<string>(nullable: true),
                     RecipeId = table.Column<int>(nullable: false),
                     IngredientId = table.Column<int>(nullable: false),
                     Unit = table.Column<string>(type: "varchar(100)", nullable: true),
@@ -187,6 +219,10 @@ namespace MyRecipe.Data.Migrations
                     ShoppingIngredientId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Deleted = table.Column<bool>(nullable: false),
+                    CreatedDate = table.Column<DateTime>(nullable: false, defaultValueSql: "getdate()"),
+                    UpdatedDate = table.Column<DateTime>(nullable: false, defaultValueSql: "getdate()"),
+                    CreatedUser = table.Column<string>(nullable: true),
+                    UpdatedUser = table.Column<string>(nullable: true),
                     ShoppingListId = table.Column<int>(nullable: false),
                     IngredientId = table.Column<int>(nullable: false),
                     Quantity = table.Column<double>(nullable: false)

@@ -12,6 +12,7 @@ namespace MyRecipe.Core.Profiles
                  .ForMember(c => c.RecipeId, o => o.MapFrom(m => m.Id))
                  .ForMember(c => c.RecipeIngredients, o => o.MapFrom(m => m.RecipeIngredient))
                  .ForMember(c => c.RecipeImages, o => o.MapFrom(m => m.RecipeImage))
+                 .ForMember(c => c.Customer, o => o.MapFrom(m => m.Customer))
                  .ForMember(c => c.CategoryName, o => o.MapFrom(m => m.Category.Name))
                  .ReverseMap();
 

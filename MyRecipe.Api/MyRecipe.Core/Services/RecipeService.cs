@@ -70,7 +70,19 @@ namespace MyRecipe.Core.Services
         {
             var data = await _recipeRepository.GetRecipes(recipeName, startRecordNumber, pageSize, orderBy);
             var result = new ResultOutputData<IList<RecipeModel>>();
-            result.ResultSet = _mapper.Map<RecipeModel[]>(data.Item1);
+
+            var list = _mapper.Map<RecipeModel[]>(data.Item1);
+            foreach(var recipe in list)
+            {
+                recipe.AuthorName = $"{recipe.Customer.FirstName} {recipe.Customer.LastName}";
+
+                if(recipe.RecipeImages.Any()) {
+                    recipe.ImageUrl = recipe.RecipeImages[0].ImagePath;
+                }
+            }
+
+
+            result.ResultSet = list;
             result.TotalCount = data.Item2;
             return result;
         }

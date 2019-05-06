@@ -18,6 +18,10 @@ namespace MyRecipe.Data.EntityConfiguration
             builder.Property(c => c.LastName).HasColumnType("varchar(50)").IsRequired();
             builder.Property(c => c.Email).HasColumnType("varchar(50)").IsRequired();
 
+            builder.Property(c => c.CreatedDate).HasDefaultValueSql("getdate()");
+            builder.Property(c => c.UpdatedDate).HasDefaultValueSql("getdate()");
+
+
 
             builder.ToTable("Customer");
         }

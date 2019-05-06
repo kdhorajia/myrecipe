@@ -25,6 +25,10 @@ namespace MyRecipe.Data.EntityConfiguration
                .OnDelete(DeleteBehavior.Restrict)
                .HasConstraintName("FK_User_Customer");
 
+            builder.Property(c => c.CreatedDate).HasDefaultValueSql("getdate()");
+            builder.Property(c => c.UpdatedDate).HasDefaultValueSql("getdate()");
+
+
             builder.ToTable("User");
 
         }

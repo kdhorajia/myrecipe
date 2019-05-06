@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MyRecipe.Models;
+using MyRecipe.Common;
 using MyRecipe.Models.Entities;
 using System;
 using System.Collections.Generic;
@@ -10,21 +10,22 @@ namespace MyRecipe.Data.Repositories
 {
     public class RecipeRepository : TrackingRepository<Recipe>, IRecipeRepository
     {
-        public RecipeRepository(MyRecipeDbContext context) : base(context) { }
+        public RecipeRepository(MyRecipeDbContext context, IPrincipalUser principalUser) : base(context, principalUser) { }
 
         public Recipe AddRecipe(Recipe recipe)
         {
-            _context.Add(recipe);
+            this.Add(recipe);
             return recipe;
         }
 
         public async Task<Tuple<IList<Recipe>, int>> GetRecipes(string recipeName, int startRecordNumber, int pageSize, string orderBy)
         {
-            var query = _context.Set<Recipe>().Where(o => !o.Deleted && o.Name.ToLowerInvariant().Contains(recipeName.ToLowerInvariant()))
+            IQueryable<Recipe> query = _context.Set<Recipe>().Where(o => !o.Deleted && o.Name.ToLowerInvariant().Contains(recipeName.ToLowerInvariant()))
+                .Include(o => o.Customer)
                 .Include(o => o.RecipeIngredient)
                 .Include(o => o.RecipeImage)
                 .Include("RecipeIngredient.Ingredient");
-            
+
             query = !string.IsNullOrEmpty(orderBy)
                ? query.OrderBy(orderBy)
                : query.OrderBy(a => a.Name);
@@ -32,14 +33,18 @@ namespace MyRecipe.Data.Repositories
             int total = await query.CountAsync();
 
             if (startRecordNumber > 0)
+            {
                 query = query.Skip<Recipe>(startRecordNumber);
+            }
 
             if (pageSize > 0)
+            {
                 query = query.Take<Recipe>(pageSize);
+            }
 
-            var result = await query.ToListAsync();
+            List<Recipe> result = await query.ToListAsync();
 
-            return new Tuple<IList<Recipe>,int> (result, total);
+            return new Tuple<IList<Recipe>, int>(result, total);
         }
     }
 }

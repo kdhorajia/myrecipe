@@ -1,10 +1,8 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System.Reflection;
 
 namespace MyRecipe.Api
 {
@@ -20,7 +18,7 @@ namespace MyRecipe.Api
             Configuration = builder.Build();
         }
 
-        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+        private readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
         public IConfiguration Configuration { get; }
 
@@ -37,8 +35,9 @@ namespace MyRecipe.Api
             });
 
 
-            Data.Configure.ConfigureServices(services, Configuration.GetConnectionString("MyRecipeDbConnectionLocal"));
+            Data.Configure.ConfigureServices(services, Configuration.GetConnectionString("MyRecipeDbConnection"));
             Core.Configure.ConfigureServices(services);
+            Common.Configure.ConfigureServices(services);
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

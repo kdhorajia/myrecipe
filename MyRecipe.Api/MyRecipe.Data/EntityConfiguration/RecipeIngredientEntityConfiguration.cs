@@ -17,7 +17,11 @@ namespace MyRecipe.Data.EntityConfiguration
 
             builder.Property(c => c.Unit).HasColumnType("varchar(100)");
             builder.Property(c => c.Preparation).HasColumnType("varchar(500)");
-          
+
+            builder.Property(c => c.CreatedDate).HasDefaultValueSql("getdate()");
+            builder.Property(c => c.UpdatedDate).HasDefaultValueSql("getdate()");
+
+
             builder.ToTable("RecipeIngredient");
         }
     }

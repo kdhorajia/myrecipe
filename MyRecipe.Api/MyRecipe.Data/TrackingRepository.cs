@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
+using MyRecipe.Common;
 using MyRecipe.Models.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,18 +20,26 @@ namespace MyRecipe.Data
     public class TrackingRepository<T> : ITrackingRepository<T> where T : TrackedEntity
     {
         protected MyRecipeDbContext _context;
-        public TrackingRepository(MyRecipeDbContext context)
+        private readonly IPrincipalUser _principalUser;
+
+        public TrackingRepository(MyRecipeDbContext context, IPrincipalUser principalUser)
         {
             _context = context;
+            _principalUser = principalUser;
         }
 
         public virtual void Add(T Item)
         {
+             AddMetaInfo(Item);
             _context.Add(Item);
         }
 
         public virtual void AddAll(IEnumerable<T> Items)
         {
+            foreach (var item in Items)
+            {
+                AddMetaInfo(item);
+            }
             _context.AddRange(Items);
         }
 
@@ -56,11 +66,16 @@ namespace MyRecipe.Data
 
         public virtual void Save(T Item)
         {
+            AddMetaInfo(Item);
             _context.Update(Item);
         }
 
         public virtual void SaveAll(IEnumerable<T> Items)
         {
+            foreach(var item in Items)
+            {
+                UpdateMetaInfo(item);
+            }
             _context.UpdateRange(Items);
         }
 
@@ -72,6 +87,18 @@ namespace MyRecipe.Data
         public virtual Task<IDbContextTransaction> StartTransaction()
         {
             return _context.Database.BeginTransactionAsync();
+        }
+
+        private void AddMetaInfo(T entity)
+        {
+            entity.CreatedDate = DateTime.Now;
+            entity.CreatedUser = _principalUser.UserName;
+        }
+
+        private void UpdateMetaInfo(T entity)
+        {
+            entity.UpdatedDate = DateTime.Now;
+            entity.UpdatedUser = _principalUser.UserName;
         }
     }
 }

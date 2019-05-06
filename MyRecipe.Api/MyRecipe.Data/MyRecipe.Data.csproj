@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MyRecipe.Common\MyRecipe.Common.csproj" />
     <ProjectReference Include="..\MyRecipe.Models\MyRecipe.Models.csproj" />
   </ItemGroup>
 

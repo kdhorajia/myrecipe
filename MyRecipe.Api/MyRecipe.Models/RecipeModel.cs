@@ -14,6 +14,9 @@ namespace MyRecipe.Models
         public string CategoryName { get; set; }
 
         public string AuthorName { get; set; }
+        public string ImageUrl { get; set; }
+
+        public CustomerModel Customer { get; set; }
 
         public List<RecipeIngredientModel> RecipeIngredients { get; set; }
         public List<RecipeImageModel> RecipeImages { get; set; }

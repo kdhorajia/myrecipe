@@ -14,6 +14,10 @@ namespace MyRecipe.Data.EntityConfiguration
                 .ValueGeneratedOnAdd()
                 .HasColumnName("RecipeImageId");
 
+            builder.Property(c => c.CreatedDate).HasDefaultValueSql("getdate()");
+            builder.Property(c => c.UpdatedDate).HasDefaultValueSql("getdate()");
+
+
             builder.Property(c => c.ImagePath).HasColumnType("varchar(300)");
 
         }

@@ -26,6 +26,12 @@ namespace MyRecipe.Data.Migrations
                         .HasColumnName("CategoryId")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTime>("CreatedDate")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<string>("CreatedUser");
+
                     b.Property<bool>("Deleted");
 
                     b.Property<string>("Description")
@@ -33,6 +39,12 @@ namespace MyRecipe.Data.Migrations
 
                     b.Property<string>("Name")
                         .HasColumnType("varchar(50)");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<string>("UpdatedUser");
 
                     b.HasKey("Id");
 
@@ -45,6 +57,12 @@ namespace MyRecipe.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnName("CustomerId")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<string>("CreatedUser");
 
                     b.Property<bool>("Deleted");
 
@@ -60,6 +78,12 @@ namespace MyRecipe.Data.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(50)");
 
+                    b.Property<DateTime>("UpdatedDate")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<string>("UpdatedUser");
+
                     b.HasKey("Id");
 
                     b.HasIndex("Id");
@@ -74,10 +98,23 @@ namespace MyRecipe.Data.Migrations
                         .HasColumnName("IngredientId")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTime>("CreatedDate")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<string>("CreatedUser");
+
                     b.Property<bool>("Deleted");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("varchar(200)");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<string>("UpdatedUser");
 
                     b.HasKey("Id");
 
@@ -96,6 +133,12 @@ namespace MyRecipe.Data.Migrations
                     b.Property<string>("CookingTime")
                         .HasColumnType("varchar(30)");
 
+                    b.Property<DateTime>("CreatedDate")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<string>("CreatedUser");
+
                     b.Property<int>("CustomerId");
 
                     b.Property<bool>("Deleted");
@@ -111,6 +154,12 @@ namespace MyRecipe.Data.Migrations
 
                     b.Property<string>("PreparationTime")
                         .HasColumnType("varchar(30)");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<string>("UpdatedUser");
 
                     b.HasKey("Id");
 
@@ -131,12 +180,24 @@ namespace MyRecipe.Data.Migrations
                         .HasColumnName("RecipeImageId")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTime>("CreatedDate")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<string>("CreatedUser");
+
                     b.Property<bool>("Deleted");
 
                     b.Property<string>("ImagePath")
                         .HasColumnType("varchar(300)");
 
                     b.Property<int>("RecipeId");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<string>("UpdatedUser");
 
                     b.HasKey("Id");
 
@@ -152,6 +213,12 @@ namespace MyRecipe.Data.Migrations
                         .HasColumnName("RecipeIngredientId")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTime>("CreatedDate")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<string>("CreatedUser");
+
                     b.Property<bool>("Deleted");
 
                     b.Property<int>("IngredientId");
@@ -165,6 +232,12 @@ namespace MyRecipe.Data.Migrations
 
                     b.Property<string>("Unit")
                         .HasColumnType("varchar(100)");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<string>("UpdatedUser");
 
                     b.HasKey("Id");
 
@@ -182,6 +255,12 @@ namespace MyRecipe.Data.Migrations
                         .HasColumnName("ShoppingIngredientId")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTime>("CreatedDate")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<string>("CreatedUser");
+
                     b.Property<bool>("Deleted");
 
                     b.Property<int>("IngredientId");
@@ -189,6 +268,12 @@ namespace MyRecipe.Data.Migrations
                     b.Property<double>("Quantity");
 
                     b.Property<int>("ShoppingListId");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<string>("UpdatedUser");
 
                     b.HasKey("Id");
 
@@ -209,12 +294,24 @@ namespace MyRecipe.Data.Migrations
                         .HasColumnType("datetime")
                         .HasDefaultValueSql("getdate()");
 
+                    b.Property<DateTime>("CreatedDate")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<string>("CreatedUser");
+
                     b.Property<int>("CustomerId");
 
                     b.Property<bool>("Deleted");
 
                     b.Property<string>("Name")
                         .HasColumnType("varchar(50)");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<string>("UpdatedUser");
 
                     b.HasKey("Id");
 
@@ -230,6 +327,12 @@ namespace MyRecipe.Data.Migrations
                         .HasColumnName("UserId")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTime>("CreatedDate")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<string>("CreatedUser");
+
                     b.Property<int>("CustomerId");
 
                     b.Property<bool>("Deleted");
@@ -237,6 +340,12 @@ namespace MyRecipe.Data.Migrations
                     b.Property<string>("PasswordHash")
                         .IsRequired()
                         .HasColumnType("varchar(50)");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<string>("UpdatedUser");
 
                     b.Property<string>("UserName")
                         .IsRequired()
