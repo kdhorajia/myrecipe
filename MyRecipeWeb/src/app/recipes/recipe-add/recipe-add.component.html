@@ -1,12 +1,29 @@
-<section class="hero is-info is-bold">
+<section class="hero is-primary is-bold">
   <div class="hero-body">
     <div class="container">
-      <h1 class="title">
-        My Recipe
-      </h1>
       <h2 class="subtitle">
-        Add New Recipe
+        Add new recipe
       </h2>
     </div>
   </div>
 </section>
+<div class="container is-fluid">
+  <form [formGroup]="addForm">
+    <div class="columns">
+      <div class="column is-half">
+        <div class="field">
+          <label class="label">Recipe name</label>
+          <div class="control">
+            <input class="full-width" kendoTextBox formControlName="recipeNameControl" />
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Choose a category</label>
+          <div class="control">
+            <input class="full-width" kendoTextBox formControlName="recipeNameControl" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

@@ -45,6 +45,7 @@ namespace MyRecipe.Api.Controllers
         [HttpGet]
         public async Task<ResultOutputData<IList<RecipeModel>>> GetRecipes(string recipeName = "", int startRecordNumber = 0, int pageSize = 10, string orderBy = "")
         {
+            recipeName = recipeName == null ? string.Empty : recipeName;
             var result = await _recipeService.GetRecipes(recipeName, startRecordNumber, pageSize, orderBy);
             return result;
         }

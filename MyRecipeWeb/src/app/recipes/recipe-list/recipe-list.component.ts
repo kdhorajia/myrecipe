@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { RecipeModel } from 'src/app/models/recipes.model';
+import { PageEvent } from '@angular/material';
+import { RecipeService } from 'src/app/services/recipe.services';
+import { RecipeSearchModel } from 'src/app/models/recipes.search.model';
+import { FormGroup, FormBuilder, FormControlName } from '@angular/forms';
+
 
 @Component({
   selector: 'app-recipe-list',
@@ -8,15 +13,45 @@ import { RecipeModel } from 'src/app/models/recipes.model';
 })
 export class RecipeListComponent implements OnInit {
 
+  searchForm: FormGroup;
+  
+  totalCount: number;
+  pageSize = 10;
+  pageSizeOptions: number[] = [5, 10, 25, 100];
+  recipeName: string = "";
+  searchParam: RecipeSearchModel;
+
   recipeList: RecipeModel[] = []
-  constructor() { }
+
+  recipeNameControl: FormControlName;
+
+  constructor(private recipeService: RecipeService, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
-    this.recipeList.push(new RecipeModel('Win\'s Shrimp and Spaghetti', 'Fresh shrimp simmered in butter, teriyaki sauce and Creole-style seasoning, served over pasta.', 'Jeremie Lumandong', '../../../assets//products/product1.jpg'));
-    this.recipeList.push(new RecipeModel('Chicken Pot Pie IX', 'A delicious chicken pot pie made from scratch with carrots, peas, and celery for a comfort.', 'Lili Lumandong', '../../../assets//products/product2.jpg'));
-    this.recipeList.push(new RecipeModel('Chicken Marsala Over White Rice', 'A delicious chicken pot pie made from scratch with carrots, peas, and celery for a comfort.', 'Jane Doe', '../../../assets//products/product3.jpg'));
-    this.recipeList.push(new RecipeModel('Spicy Thai Basil Chicken', 'A delicious chicken pot pie made from scratch with carrots, peas, and celery for a comfort.', 'Alex Supper', '../../../assets//products/product4.jpg'));
-    this.recipeList.push(new RecipeModel('Moroccan Chicken Tagine', 'A delicious chicken pot pie made from scratch with carrots, peas, and celery for a comfort.', 'Tony Stark', '../../../assets//products/product5.jpg'));
+    this.buildForm();
+    this.searchParam = new RecipeSearchModel("", 0, this.pageSize);
+    this.searchParam.recipeName = this.searchForm.controls.recipeNameControl.value;
+    this.searchData();
+  }
+
+  getPage(page: PageEvent) {
+    const startRecordNumber = page.pageIndex * page.pageSize;
+    this.searchParam = new RecipeSearchModel(this.recipeName, startRecordNumber, this.pageSize);
+    this.searchData();
+  }
+
+  searchData() {
+     this.searchParam.recipeName = this.searchForm.controls.recipeNameControl.value || '';
+     this.recipeService.getRecipes(this.searchParam).subscribe((data) => {
+       this.totalCount = data.totalCount;
+       this.recipeList = data.resultSet;
+     })
+  }
+
+  buildForm() {
+    this.searchForm = this.formBuilder.group({
+      recipeNameControl: this.formBuilder.control(null, []),
+    });
   }
 
 }

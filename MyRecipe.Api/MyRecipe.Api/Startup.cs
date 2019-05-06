@@ -20,11 +20,23 @@ namespace MyRecipe.Api
             Configuration = builder.Build();
         }
 
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy(MyAllowSpecificOrigins,
+                builder =>
+                {
+                    builder.WithOrigins("http://localhost:4200");
+                });
+            });
+
+
             Data.Configure.ConfigureServices(services, Configuration.GetConnectionString("MyRecipeDbConnectionLocal"));
             Core.Configure.ConfigureServices(services);
 
@@ -42,6 +54,8 @@ namespace MyRecipe.Api
             {
                 app.UseHsts();
             }
+
+            app.UseCors(MyAllowSpecificOrigins);
 
             app.UseHttpsRedirection();
             app.UseMvc();

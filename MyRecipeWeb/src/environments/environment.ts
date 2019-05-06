@@ -3,7 +3,12 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  title: "My Recipe Web",
+  baseApiLink: 'http://localhost:5009',
+  baseUrls: {
+    getRecipeUrl: '/api/recipe'
+  }
 };
 
 /*

@@ -11,6 +11,11 @@ import { RecipeCardComponent } from './recipes/recipe-card/recipe-card.component
 import { TruncatePipe } from './pipes/truncate.pipe';
 import { RecipeAddComponent } from './recipes/recipe-add/recipe-add.component';
 import { HeroBodyComponent } from './layout/hero-body/hero-body.component';
+import { RecipeService } from './services/recipe.services';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { InputsModule } from '@progress/kendo-angular-inputs';
+
 
 @NgModule({
   declarations: [
@@ -24,6 +29,9 @@ import { HeroBodyComponent } from './layout/hero-body/hero-body.component';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     MatToolbarModule,
     MatIconModule,
@@ -31,9 +39,10 @@ import { HeroBodyComponent } from './layout/hero-body/hero-body.component';
     MatCardModule,
     MatGridListModule,
     MatPaginatorModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    InputsModule
   ],
-  providers: [],
+  providers: [RecipeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
