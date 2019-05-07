@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace MyRecipe.Api
 {
@@ -38,6 +41,27 @@ namespace MyRecipe.Api
             Data.Configure.ConfigureServices(services, Configuration.GetConnectionString("MyRecipeDbConnection"));
             Core.Configure.ConfigureServices(services);
             Common.Configure.ConfigureServices(services);
+
+            var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration.GetValue<string>("TokenSecret")));
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
+            }).AddJwtBearer(cfg =>
+            {
+                cfg.RequireHttpsMetadata = false;
+                cfg.SaveToken = true;
+                cfg.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    IssuerSigningKey = signingKey,
+                    ValidateAudience = false,
+                    ValidateIssuer = false,
+                    ValidateLifetime = false,
+                    ValidateIssuerSigningKey = true
+                };
+            });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
