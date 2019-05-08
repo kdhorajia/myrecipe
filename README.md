@@ -7,6 +7,7 @@
 - .NET Core Web API
 - Angular 7
 - SQL Server
+- Identity Server 4
 
 ### Initial Database Design
 
