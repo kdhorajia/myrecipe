@@ -49,5 +49,14 @@ namespace MyRecipe.Api.Controllers
             var result = await _recipeService.GetRecipes(recipeName, startRecordNumber, pageSize, orderBy);
             return result;
         }
+
+
+        [Route("test"), HttpGet]
+        public async Task<string> Test(string recipeName = "", int startRecordNumber = 0, int pageSize = 10, string orderBy = "")
+        {
+
+            return "This is test";
+        }
+
     }
 }
