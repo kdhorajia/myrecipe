@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
-using MyRecipe.Common;
 using MyRecipe.Models.Entities;
 using System;
 using System.Collections.Generic;
@@ -20,12 +19,10 @@ namespace MyRecipe.Data
     public class TrackingRepository<T> : ITrackingRepository<T> where T : TrackedEntity
     {
         protected MyRecipeDbContext _context;
-        private readonly IPrincipalUser _principalUser;
 
-        public TrackingRepository(MyRecipeDbContext context, IPrincipalUser principalUser)
+        public TrackingRepository(MyRecipeDbContext context)
         {
             _context = context;
-            _principalUser = principalUser;
         }
 
         public virtual void Add(T Item)
@@ -92,13 +89,13 @@ namespace MyRecipe.Data
         private void AddMetaInfo(T entity)
         {
             entity.CreatedDate = DateTime.Now;
-            entity.CreatedUser = _principalUser.UserName;
+            entity.CreatedUser = "Dummy";
         }
 
         private void UpdateMetaInfo(T entity)
         {
             entity.UpdatedDate = DateTime.Now;
-            entity.UpdatedUser = _principalUser.UserName;
+            entity.UpdatedUser = "Dummy";
         }
     }
 }

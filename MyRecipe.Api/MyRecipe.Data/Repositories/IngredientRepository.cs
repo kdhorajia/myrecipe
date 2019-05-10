@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MyRecipe.Common;
 using MyRecipe.Models.Entities;
 using System.Threading.Tasks;
 
@@ -7,7 +6,7 @@ namespace MyRecipe.Data.Repositories
 {
     public class IngredientRepository : TrackingRepository<Ingredient>, IIngredientRepository
     {
-        public IngredientRepository(MyRecipeDbContext context, IPrincipalUser principalUser) : base(context, principalUser)
+        public IngredientRepository(MyRecipeDbContext context) : base(context)
         {
         }
 

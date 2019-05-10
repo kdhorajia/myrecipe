@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MyRecipe.Common;
 using MyRecipe.Models.Entities;
 using System;
 using System.Collections.Generic;
@@ -10,7 +9,7 @@ namespace MyRecipe.Data.Repositories
 {
     public class RecipeRepository : TrackingRepository<Recipe>, IRecipeRepository
     {
-        public RecipeRepository(MyRecipeDbContext context, IPrincipalUser principalUser) : base(context, principalUser) { }
+        public RecipeRepository(MyRecipeDbContext context) : base(context) { }
 
         public Recipe AddRecipe(Recipe recipe)
         {

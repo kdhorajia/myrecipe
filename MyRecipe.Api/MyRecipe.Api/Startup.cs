@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using System;
 using System.Text;
 
 namespace MyRecipe.Api
@@ -37,11 +38,13 @@ namespace MyRecipe.Api
                 });
             });
 
+            var hostname = Environment.GetEnvironmentVariable("SQLSERVER_HOST") ?? "localhost";
+            var password = Environment.GetEnvironmentVariable("SQLSERVER_SA_PASSWORD") ?? "Qwerty123456**";
+            var connString = $"Data Source={hostname};Initial Catalog=MyRecipes;User ID=sa;Password={password};";
 
-            Data.Configure.ConfigureServices(services, Configuration.GetConnectionString("MyRecipeDbConnection"));
+            Data.Configure.ConfigureServices(services, connString);
             Core.Configure.ConfigureServices(services);
-            Common.Configure.ConfigureServices(services);
-
+        
             var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration.GetValue<string>("TokenSecret")));
 
             services.AddAuthentication(options =>
