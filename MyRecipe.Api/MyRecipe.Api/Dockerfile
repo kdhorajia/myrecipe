@@ -7,7 +7,6 @@ WORKDIR /src
 COPY ["MyRecipe.Api/MyRecipe.Api.csproj", "MyRecipe.Api/"]
 COPY ["MyRecipe.Data/MyRecipe.Data.csproj", "MyRecipe.Data/"]
 COPY ["MyRecipe.Models/MyRecipe.Models.csproj", "MyRecipe.Models/"]
-COPY ["MyRecipe.Common/MyRecipe.Common.csproj", "MyRecipe.Common/"]
 COPY ["MyRecipe.Core/MyRecipe.Core.csproj", "MyRecipe.Core/"]
 RUN dotnet restore "MyRecipe.Api/MyRecipe.Api.csproj"
 COPY . .

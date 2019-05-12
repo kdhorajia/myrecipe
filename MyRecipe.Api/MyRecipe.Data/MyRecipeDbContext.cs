@@ -7,7 +7,9 @@ namespace MyRecipe.Data
 {
     public partial class MyRecipeDbContext : DbContext
     {
-        public MyRecipeDbContext(DbContextOptions<MyRecipeDbContext> options) : base(options) { }
+        public MyRecipeDbContext(DbContextOptions<MyRecipeDbContext> options) : base(options) {
+            this.Database.EnsureCreated();
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -22,11 +24,6 @@ namespace MyRecipe.Data
             modelBuilder.ApplyConfiguration(new ShoppingIngredientEntityConfiguration());
 
             base.OnModelCreating(modelBuilder);
-        }
-
-        internal object Set<T>(int v)
-        {
-            throw new NotImplementedException();
         }
 
         public virtual DbSet<Category> Category { get; set; }
